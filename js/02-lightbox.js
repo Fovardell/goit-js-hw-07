@@ -1,21 +1,23 @@
-// TODO: Створення і рендер розмітки на підставі масиву даних galleryItems
-// і наданого шаблону елемента галереї.Використовуй готовий код з першого завдання.
-// TODO: Підключення скрипту і стилів бібліотеки, використовуючи CDN сервіс cdnjs. 
-//Необхідно додати посилання на два файли:
-//simple - lightbox.min.js і simple - lightbox.min.css.
-// TODO: Ініціалізація бібліотеки після створення і додання елементів
-// галереї у ul.gallery.Для цього ознайомся з документацією
-//SimpleLightbox - насамперед секції «Usage» і «Markup».
-// TODO: Подивися в документації секцію «Options» і додай відображення підписів
-// до зображень з атрибута alt.Нехай підпис буде знизу
-// і з'являється через 250 мілісекунд після відкриття зображення.
-// TODO: В другому завданні не потрібно робити делегування,
-// прибирати поведінку по - замовчуванню, робити закриття бібліотеки по натисканню на ESC
-// і перевіряти, чи ми клікнули в зображення.
-//В Simplelightbox всі ці моменти вже реалізовані під капотом.
-//Достатньо тільки після вставки в ДОМ розмітки створити екземпляр бібліотеки
-// і передати обʼєкт налаштувань з вірними властивостями, які вимагає ТЗ.
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
+const gallery = document.querySelector('.gallery');
+const markup = galleryItems.map(i => `		
+		<li class="gallery__item">
+			<a class="gallery__link" href="${i.original}">
+				<img class="gallery__image" src="${i.preview}"
+					alt="${i.description}" />
+			</a>
+		</li>`)
+	.join('');
 
-console.log(galleryItems);
+gallery.innerHTML = markup;
+
+const options = {
+	captions: true,
+	captionType: 'attr',
+	captionsData: 'alt',
+	captionPosition: 'bottom',
+	captionDelay: 250,
+
+};
+var lightbox = new SimpleLightbox('.gallery a', options);
