@@ -15,9 +15,12 @@ gallery.addEventListener('click', (e) => {
 
 	const instance = basicLightbox.create(`
       <img src="${e.target.dataset.source}">
-  `);
+  `, {
+		onClose: (instance) => {
+			document.removeEventListener('keydown', closeModalWindow);
+		}
+	});
 	instance.show();
-
 
 	document.addEventListener('keydown', closeModalWindow);
 	function closeModalWindow(evt) {
@@ -25,6 +28,5 @@ gallery.addEventListener('click', (e) => {
 			return;
 		}
 		instance.close();
-		document.removeEventListener('keydown', closeModalWindow);
 	}
 });
